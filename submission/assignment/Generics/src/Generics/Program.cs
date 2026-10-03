@@ -5,7 +5,7 @@
         static void Main(string[] args)
         {
 
-            var store = new StudentStore();
+            var store = new Store<Student>();
 
             store.Add(new Student { Id = 1, Name = "Youssef" });
             store.Add(new Student { Id = 2, Name = "Ahmed" });
@@ -31,7 +31,7 @@
                 Console.WriteLine($"{item.Id}: {item.Name}");
             }
 
-            var courseStore = new CourseStore();
+            var courseStore = new Store<Course>();
 
             courseStore.Add(new Course
             {
