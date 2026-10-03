@@ -11,6 +11,15 @@
             store.Add(new Student { Id = 2, Name = "Ahmed" });
             store.Add(new Student { Id = 3, Name = "Omar" });
 
+            try
+            {
+                store.Add(new Student { Id = 2, Name = "Mohamed" });
+            }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine($"Duplicate error: {ex.Message}");
+            }
+
             var student = store.GetById(2);
 
             Console.WriteLine($"Found: {student?.Name}");

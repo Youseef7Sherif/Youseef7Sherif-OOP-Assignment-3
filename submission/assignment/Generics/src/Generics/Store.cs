@@ -2,38 +2,30 @@
 
 public class Store<T> where T : IHasId
 {
-    private readonly List<T> _items = new();
+    private readonly Dictionary<int, T> _items = new();
 
     public void Add(T item)
     {
-        _items.Add(item);
+        if (_items.ContainsKey(item.Id))
+            throw new InvalidOperationException(
+                $"An item with Id {item.Id} already exists.");
+
+        _items.Add(item.Id, item);
     }
 
     public T? GetById(int id)
     {
-        foreach (var item in _items)
-        {
-            if (item.Id == id)
-                return item;
-        }
-
-        return default;
+        _items.TryGetValue(id, out var item);
+        return item;
     }
 
-    public List<T> GetAll()
+    public IReadOnlyCollection<T> GetAll()
     {
-        return _items;
+        return _items.Values;
     }
 
     public void Remove(int id)
     {
-        for (var i = 0; i < _items.Count; i++)
-        {
-            if (_items[i].Id == id)
-            {
-                _items.RemoveAt(i);
-                return;
-            }
-        }
+        _items.Remove(id);
     }
 }
