@@ -13,11 +13,13 @@
             store.Add(new Student { Id = 1, Name = "Youssef" });
             store.Add(new Student { Id = 2, Name = "Ahmed" });
             store.Add(new Student { Id = 3, Name = "Omar" });
+            store.Add(new Student { Id = 4, Name = "Mohamed" });
+            store.Add(new Student { Id = 5, Name = "Ali" });
 
             // Test duplicate ID
             try
             {
-                store.Add(new Student { Id = 2, Name = "Mohamed" });
+                store.Add(new Student { Id = 2, Name = "Khaled" });
             }
             catch (InvalidOperationException ex)
             {
@@ -27,7 +29,7 @@
             // Test GetById
             var student = store.GetById(2);
 
-            Console.WriteLine($"Found: {student?.Name}");
+            Console.WriteLine($"Found student: {student?.Name}");
 
             // Test GetAll
             Console.WriteLine("All students:");
@@ -86,7 +88,7 @@
             // Test GetById
             var course = courseStore.GetById(2);
 
-            Console.WriteLine($"Found: {course?.Title} - {course?.Price}");
+            Console.WriteLine($"Found course: {course?.Title} - {course?.Price}");
 
             // Test GetAll
             Console.WriteLine("All courses:");
@@ -123,7 +125,7 @@
                 }
             };
 
-            // Test FindById
+            // Test FindById on a plain List<Course>
             var foundCourse = courseList.FindById(2);
 
             Console.WriteLine($"FindById: {foundCourse?.Title}");
@@ -148,6 +150,15 @@
             {
                 Console.WriteLine($"{item.Id}: {item.Title} - {item.Price}");
             }
+
+
+            // =========================
+            // Generic Constraint Test
+            // =========================
+
+            // This must NOT compile if uncommented.
+            // string does not implement IHasId.
+            // var invalidStore = new Store<string>();
         }
     }
 }

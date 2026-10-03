@@ -32,19 +32,17 @@ The `Course` class has:
 - `Title`
 - `Price`
 
+---
+
 ## Step 3 — Generic Store
 
 ### Compiler Error
 
-```text
-'T' does not contain a definition for 'Id' and no accessible extension method 'Id' accepting a first argument of type 'T' could be found.
-```
+`'T' does not contain a definition for 'Id'`
 
 Another error appears because `T` can be a value type:
 
-```text
-Cannot convert null to type parameter 'T' because it could be a non-nullable value type.
-```
+`Cannot convert null to type parameter 'T' because it could be a non-nullable value type.`
 
 ### Why does this happen?
 
@@ -55,3 +53,17 @@ For example, `T` could be `string` or `int`, and neither type has an `Id` proper
 The `return null` statement also causes an error because `T` could be a non-nullable value type such as `int`, which cannot be assigned `null`.
 
 This shows that the generic store needs a constraint that guarantees the stored type has an `Id`.
+
+---
+
+## Step 7 — Generic Constraints and Reuse
+
+### Why can we use `Store<Student>` and `Store<Course>`?
+
+Both `Student` and `Course` implement `IHasId`.
+
+The constraint:
+
+```csharp
+where T : IHasId
+```
