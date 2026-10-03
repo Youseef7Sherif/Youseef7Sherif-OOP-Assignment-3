@@ -31,3 +31,27 @@ The `Course` class has:
 - `Id`
 - `Title`
 - `Price`
+
+## Step 3 — Generic Store
+
+### Compiler Error
+
+```text
+'T' does not contain a definition for 'Id' and no accessible extension method 'Id' accepting a first argument of type 'T' could be found.
+```
+
+Another error appears because `T` can be a value type:
+
+```text
+Cannot convert null to type parameter 'T' because it could be a non-nullable value type.
+```
+
+### Why does this happen?
+
+`Store<T>` can work with any type, so the compiler cannot assume that `T` has an `Id` property.
+
+For example, `T` could be `string` or `int`, and neither type has an `Id` property.
+
+The `return null` statement also causes an error because `T` could be a non-nullable value type such as `int`, which cannot be assigned `null`.
+
+This shows that the generic store needs a constraint that guarantees the stored type has an `Id`.
